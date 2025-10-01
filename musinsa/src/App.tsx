@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import GlobalStyle from "./style/GlobalStyle"; 
-import { Route, Routes,Outlet } from 'react-router-dom';
+import GlobalStyle from "./style/GlobalStyle";
+import { Route, Routes, Outlet } from 'react-router-dom';
 
 
 // 페이지 이 밑으로 쭉 정리해주세요.
@@ -10,11 +10,11 @@ import MainPage from "./components/page/MainPage";
 //페이지 외 요소들은 이 밑으로 정리해주세요.
 import Header from "./components/layouts/Header";
 
-function MainLayout(){
-  return(
+function MainLayout() {
+  return (
     <>
-    <Header />
-    <StyledOutlet />
+      <Header />
+      <StyledOutlet />
     </>
   )
 }
@@ -22,10 +22,10 @@ function MainLayout(){
 function App() {
   return (
     <WebShell>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<MainPage/>}></Route>
+          <Route path="/" element={<MainPage />}></Route>
         </Route>
       </Routes>
     </WebShell>
