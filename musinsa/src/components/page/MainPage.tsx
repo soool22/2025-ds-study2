@@ -7,11 +7,30 @@ import banner1 from '../../img/banner1.jpg';
 import banner2 from '../../img/banner2.jpg';
 import banner3 from '../../img/banner3.jpg';
 
+import bigbtn1 from '../../img/bigbtn1.jpg';
+import bigbtn2 from '../../img/bigbtn2.jpg';
+import bigbtn3 from '../../img/bigbtn3.jpg';
+import bigbtn4 from '../../img/bigbtn4.jpg';
+import bigbtn5 from '../../img/bigbtn5.jpg';
+import bigbtn6 from '../../img/bigbtn6.jpg';
+import bigbtn7 from '../../img/bigbtn7.jpg';
+
+
 const banners = [
   { img: banner1, text: "첫 구매 한정 20% 쿠폰", text2: "990원부터 첫 구매 인기 상품까지"},
   { img: banner2},
   { img: banner3, text: "가을 메이크업을 위한 신상 아이템", text2: "FIVEVIBE"},
 ];
+
+const bigbtns = [
+    { img: bigbtn1, text:""},
+    { img: bigbtn2, text:""},
+    { img: bigbtn3, text:""},
+    { img: bigbtn4, text:""},
+    { img: bigbtn5, text:""},
+    { img: bigbtn6, text:""},
+    { img: bigbtn7, text:""},
+]
 
 function MainPage() {
   return (
@@ -45,6 +64,12 @@ function MainPage() {
             </M.Banner>
         ))}
         </M.BannerBox>
+        <M.ButtonBox1>
+            {bigbtns.map((bigbtn, idx) =>(
+                <M.BigButton key={idx} bg={bigbtn.img}>{bigbtn.text}</M.BigButton>
+            ))}
+        </M.ButtonBox1>
+        <M.ButtonBox2></M.ButtonBox2>
     </M.Container>
   )
 }

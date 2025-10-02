@@ -138,9 +138,17 @@ export const BannerText2 = styled.div`
 `;
 
 export const ButtonBox1 = styled.div`
-    
+    width: 100%;
+    padding: 6px 16px 0 24px;
 `
 
 export const ButtonBox2 = styled.div`
     
+`
+
+export const BigButton = styled.div<{ bg?: string }>`
+    background-image: ${(props) => (props.bg ? `url(${props.bg})` : 'none')};
+    width:140px;
+    height:60px;
+    background-size: cover;
 `
