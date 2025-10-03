@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "styled-components": "^6.1.19"
-=======
   "name": "musinsa",
   "version": "0.1.0",
   "private": true,
@@ -14,7 +10,6 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
@@ -46,6 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
->>>>>>> 0e2283dd1f1f0461adba9c1549ab345d9cd25232
+  },
+  "devDependencies": {
+    "@types/react-dom": "^19.1.9"
   }
 }

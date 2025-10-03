@@ -124,9 +124,11 @@ overflow-x: hidden;
 .new_fits{
     display: flex;
     flex-direction: row;
-    padding: 10px 0 10px 20px;
+    padding: 10px 20px 10px 20px;
     gap:4px;
     background-color: white;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 .new_fit{
     display: flex;
@@ -136,12 +138,21 @@ overflow-x: hidden;
 .new_fit_img{
     width: 468px;
     height: 312px;
+    border-radius: 4px;
+    padding-bottom: 3px;
 }
 .new_fit > span{
     display: flex;
+    font-weight: 600;
     align-items: start;
     font-size: 13px;
 }
+.like_and_search{
+    display: flex;
+    flex-direction: row;
+gap:7px;
+}
+
 
 /*아티클 A*/
 .article_A{
@@ -309,15 +320,8 @@ gap:2px;
     color:#f31110;
 
 }
-.article_C3{
-    display: flex;
+/**/
 
-    margin:0 0 0 20px;
-    flex-direction: row; background-color: white;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    overflow: hidden;
-}
 .article_title{
     display: flex;
     flex-direction: row;
@@ -616,8 +620,19 @@ align-items: start;    width: 20%;
 
 }
 .rule{
-    padding: 4px 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+
+display: flex;
+flex-direction: column;
+gap:10px;
+
+
+
+text-decoration: underline;
+
+box-sizing: border-box;
+
+
+
+
+
 }
