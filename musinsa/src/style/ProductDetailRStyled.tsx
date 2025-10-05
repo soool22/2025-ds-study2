@@ -1,32 +1,42 @@
 import styled from 'styled-components';
 
-type StickyProps = {
+type StickyPurchaseProps = {
     $top?: number;
     $width?: number;
 };
 
-/** 1440 중앙정렬 캔버스 우측 고정 */
-export const StickyPurchase = styled.aside<StickyProps>`
-  position: fixed;
-  top: ${({ $top = 56 }) => `${$top}px`};
-  right: max(16px, calc((100vw - 1440px) / 2));
-  width: ${({ $width = 426 }) => `clamp(268px, calc(100vw - 32px), ${$width}px)`};
-  max-width: 434px;
-  z-index: 10;
+export const StickyPurchase = styled.aside<StickyPurchaseProps>`
+    position: sticky;
+    top: ${({ $top = 56 }) => `${$top}px`};
+    margin-left: 16px; /* 왼쪽 섹션과의 간격 */
+    width: ${({ $width = 426 }) => `clamp(268px, calc(100vw - 32px), ${$width}px)`};
+    max-width: 434px;
+    z-index: 10;
 
-  /* 패널 자체에 스크롤 적용 */
-  height: calc(100vh - ${({ $top = 56 }) => `${$top}px`} - 16px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+    /* 패널 자체에 스크롤 적용 */
+    height: calc(100vh - ${({ $top = 56 }) => `${$top}px`} - 16px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
-  /* 스크롤바 숨기기 */
-  &::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* Chrome, Safari */
-  }
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+    /* 스크롤바 숨기기 */
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    // 732px 이하 화면에 대한 반응형 스타일
+    @media (max-width: 732px) {
+        position: static;
+        top: auto;
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        padding: 0 16px;
+    }
 `;
+
 export const PurchaseBlock = styled.div`
     background: #fff;
     border: 1px solid #eaecef;
@@ -534,6 +544,7 @@ export const BenefitList = styled.ul`
         align-items: center;
         gap: 4px;
         font-size: 13px;
+        margin-bottom:8px;
     }
 
     img {
@@ -546,6 +557,7 @@ export const BenefitList = styled.ul`
         flex-direction: column;
         
         .main-text {
+            margin: 1px; 
             font-size: 13px;
             font-weight: 500;
             color: #111;

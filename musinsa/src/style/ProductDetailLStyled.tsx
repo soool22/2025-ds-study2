@@ -1,22 +1,20 @@
+// src/style/ProductDetailLStyled.tsx
+
 import styled from 'styled-components';
 
 type StickyProps = {
     $top?: number;
 };
-
-// 왼쪽 섹션 고정 및 레이아웃 정의 (Sticky)
 export const DetailMain = styled.div<StickyProps>`
-    position: fixed;
+    position: sticky;
     top: ${({ $top = 56 }) => `${$top}px`};
-    left: max(16px, calc((100vw - 1440px) / 2));
     width: 974px; /* 974px 고정 너비 */
     height: calc(100vh - ${({ $top = 56 }) => `${$top}px`} - 16px);
     overflow-y: auto;
-    padding: 16px;
+    padding-right: 16px; /* 우측 섹션과의 간격 */
     box-sizing: border-box;
     z-index: 10;
-    border: 1px solid #ccc;
-    
+
     /* 스크롤바 숨기기 */
     &::-webkit-scrollbar {
         width: 0px;
@@ -24,6 +22,15 @@ export const DetailMain = styled.div<StickyProps>`
     }
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    // 732px 이하 화면에 대한 반응형 스타일
+    @media (max-width: 732px) {
+        position: static;
+        top: auto;
+        width: 100%;
+        height: auto;
+        padding: 0 16px;
+    }
 `;
 
 // 이미지 갤러리 레이아웃
@@ -51,6 +58,9 @@ export const ThumbnailItem = styled.div`
     height: 80px;
     border: 1px solid #ccc;
     cursor: pointer;
+    &:first-child {
+        margin-top: 10px;
+    }
     &.active {
         border-color: #000;
     }
@@ -150,7 +160,6 @@ export const AiRecommendationButton = styled.button`
     }
 `;
 
-
 // 인디케이터
 export const Indicator = styled.div`
     display: inline-flex;
@@ -198,7 +207,6 @@ export const ZoomButton = styled.button`
     }
 `;
 
-
 // 탭 메뉴
 export const InfoTabs = styled.div`
     position: sticky;
@@ -232,7 +240,6 @@ export const TabButton = styled.button<{ active: boolean }>`
     padding: 0;
     font-family: inherit;
     border-left: 1px solid #e0e0e0;
-
 
     span {
         font-size: 14px;
@@ -293,12 +300,10 @@ export const InfoValue = styled.dd`
 // 상세 이미지를 포함하는 컨테이너. '더보기' 버튼을 누르기 전에는 내용이 제한됩니다.
 export const DetailContent = styled.div<{ $isExpanded: boolean }>`
     padding-top: 12px;
-    /* 초기 높이 제한 및 overflow 숨기기 */
     height: ${({ $isExpanded }) => ($isExpanded ? 'auto' : '908px')};
     overflow: hidden;
 
     div {
-        /* 이미지 컨테이너 */
         img {
             display: block;
             width: 100%;
@@ -316,7 +321,6 @@ export const MoreInfoFooter = styled.div`
 
 // 상품 정보 더보기 버튼
 export const MoreInfoButton = styled.button<{ $isExpanded: boolean }>`
-    /* 요청하신 스타일 반영 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -327,12 +331,10 @@ export const MoreInfoButton = styled.button<{ $isExpanded: boolean }>`
     border-radius: 4px;
     background-color: rgb(255, 255, 255);
     color: #000;
-
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
 
-    /* 확장 여부에 따라 버튼 스타일 변경 */
     ${({ $isExpanded }) => $isExpanded && `
         border: 1px solid #e0e0e0;
         background-color: #f9f9f9;
@@ -377,5 +379,341 @@ export const ReportSection = styled.div`
             color: #666;
             text-decoration: underline;
         }
+    }
+`;
+
+// --- 사이즈 탭 섹션 ---
+
+export const SizeTabContainer = styled.div`
+    padding: 16px;
+`;
+
+export const InfoSection = styled.section`
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+`;
+
+export const SectionTitle = styled.h3`
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+`;
+
+export const SectionHeader = styled.header`
+    p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+    }
+`;
+
+export const InputWrapper = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+`;
+
+export const InputGroup = styled.div`
+    position: relative;
+    flex: 1;
+`;
+
+export const StyledInput = styled.input`
+    width: 100%;
+    padding: 8px 30px 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    &::placeholder {
+        color: #ccc;
+    }
+`;
+
+export const Unit = styled.span`
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #999;
+`;
+
+export const PurchaseInfo = styled.div`
+    margin-top: 16px;
+`;
+
+export const PurchaseBar = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+`;
+
+export const BarLabel = styled.span`
+    font-weight: 600;
+    min-width: 20px;
+`;
+
+export const PurchaseBarFill = styled.div`
+    flex: 1;
+    height: 8px;
+    background-color: #245eff;
+    border-radius: 4px;
+`;
+
+export const PurchasePercentage = styled.span`
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+`;
+
+export const Note = styled.p`
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+`;
+
+export const TabButtonWrapper = styled.div`
+    display: flex;
+    gap: 1px;
+    margin: 24px 0;
+`;
+
+export const SizeTabButton = styled.button`
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    
+    background-color: #f9f9f9;
+    color: #888;
+    font-weight: 400;
+    cursor: pointer;
+
+    &.selected {
+        background-color: #fff;
+        color: #000;
+        font-weight: 600;
+        border: 1px solid #000;
+    }
+`;
+
+export const SizeImageSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+`;
+
+export const SizeImage = styled.img`
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+`;
+
+export const SizeImageNote = styled.div`
+    margin-top: 12px;
+    text-align: center;
+    p {
+        display: inline-block; /* Change display to inline-block to make them sit on the same line */
+        font-size: 13px;
+        color: #888;
+        line-height: 1.3;
+        margin: 0 4px; /* Add some space between the text elements */
+    }
+`;
+
+export const SizeTableWrapper = styled.div`
+    margin-top: 24px;
+`;
+
+export const StyledTable = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+`;
+
+export const TableHeaderCell = styled.th`
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #444;
+    
+    &.selected {
+        background-color: rgba(36, 94, 255, 0.1);
+        font-weight: 500;
+        color: #444;
+    }
+`;
+
+export const TableCell = styled.td`
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 8px;
+    font-size: 13px;
+    color: #444;
+
+    &.selected {
+        background-color: rgba(36, 94, 255, 0.1);
+    }
+`;
+
+export const ButtonRow = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+`;
+
+export const StyledButton = styled.button`
+    flex: 1;
+    height: 40px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+`;
+
+export const HorizontalLine = styled.hr`
+    border: none;
+    height: 1px;
+    background-color: #fff;
+    margin: 24px 0;
+`;
+
+export const FitSection = styled.section`
+    padding: 16px 0;
+`;
+
+export const FitTableWrapper = styled.div`
+    margin-top: 16px;
+`;
+export const SizeChartContainer = styled.div`
+    padding: 16px 0;
+`;
+
+export const SizeCategoryTabs = styled.div`
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid #ddd;
+    gap: 8px;
+    padding-bottom: 8px;
+`;
+
+export const SizeCategoryButton = styled.button`
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid #e6e8eb;
+    border-radius: 4px;
+    background-color: #f5f6f7;
+    font-size: 13px;
+    font-weight: 400;
+    color: #555;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &.selected {
+        border-color: #000;
+        background-color: #fff;
+        font-weight: 600;
+        color: #000;
+    }
+`;
+
+export const SizeChartTableWrapper = styled.div`
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 16px;
+
+    table {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #eee;
+        padding: 10px;
+        font-size: 13px;
+        text-align: center;
+        white-space: nowrap;
+    }
+    th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+`;
+export const SizeChartNoteSection = styled.div`
+    padding: 20px 0;
+    
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        color: #666;
+    }
+
+    li {
+        line-height: 1.6;
+        margin-bottom: 4px;
+        &::before {
+            content: '•';
+            margin-right: 8px;
+        }
+    }
+`;
+export const SizeCategoryUl = styled.ul`
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+`;
+
+export const SizeCategoryLi = styled.li`
+    padding: 8px;
+    border-right: 1px solid #eee;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // 각 li의 너비를 비율에 맞게 조정
+    &:first-child {
+        width: 12.5%;
+    }
+    &:nth-child(2) {
+        width: 12.5%;
+    }
+    &:nth-child(3) {
+        width: 12.5%;
+    }
+    &:nth-child(4) {
+        width: 12.5%;
+    }
+    &:nth-child(5) {
+        width: 12.5%;
+    }
+    &:nth-child(6) {
+        width: 12.5%;
+    }
+    &:nth-child(7) {
+        width: 12.5%;
     }
 `;
