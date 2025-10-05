@@ -252,7 +252,6 @@ const allProductsItems=brand.sections.allProducts;
   return (
    <BIG_DIV>
     <Body>  <Brand_Header>
-         <Header/>
          
        
     <Brand_nav>
