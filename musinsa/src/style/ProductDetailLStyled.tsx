@@ -717,3 +717,80 @@ export const SizeCategoryLi = styled.li`
         width: 12.5%;
     }
 `;
+
+//스냅
+export const SnapReviewContainer = styled.div`
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+    }
+`;
+
+export const NoticeBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f7ff;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #111;
+    cursor: pointer;
+
+    .arrow {
+        color: #999;
+        font-size: 18px;
+        margin-left: 8px;
+    }
+
+    strong {
+        color: #245eff;
+        font-weight: 700;
+    }
+`;
+
+export const NoticeText = styled.div`
+    line-height: 1.4;
+`;
+
+export const ReviewList = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+export const ReviewItem = styled.div`
+    /* border: 1px solid #e6e8eb; */
+    border-radius: 6px;
+    overflow: hidden;
+`;
+
+export const ReviewImage = styled.img`
+    width: 100%;
+    max-width: 235.500px;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #e6e8eb;
+    border-radius: 6px;
+`;
+
+export const ReviewTitle = styled.div`
+    padding: 8px 10px;
+    font-size: 13px;
+    color: #111;
+`;
+
+export const EmptyText = styled.p`
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    margin-top: 20px;
+`;
+

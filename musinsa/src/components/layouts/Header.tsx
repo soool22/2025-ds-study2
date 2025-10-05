@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import MenuIcon from '../../img/menuIcon.svg';
 import SnapIcon from '../../img/snapIcon.svg';
@@ -9,12 +10,13 @@ import PersonIcon from '../../img/personIcon.svg';
 import BagIcon from '../../img/bagIcon.svg';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <HeaderShell>
         <LeftBox>
             <ElementImg src={MenuIcon} alt='menu' />
             <ElementText2>|</ElementText2>
-            <ElementText>MUSINSA</ElementText>
+            <ElementText onClick={() => navigate(`/`)}>MUSINSA</ElementText>
             <ElementText>BEAUTY</ElementText>
             <ElementText>PLAYER</ElementText>
             <ElementText>OUTLET</ElementText>

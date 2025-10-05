@@ -47,6 +47,7 @@ import item17 from '../img/item17.jpg';
 import item18 from '../img/item18.jpg';
 import item19 from '../img/item19.jpg';
 import item20 from '../img/item20.jpg';
+import linkimg from '../img/linkImg.jpg';
 
 
 
@@ -91,8 +92,8 @@ export const sections = [
     title: "오늘의 타임세일",
     seeMoreText: "더보기",
     items: [
-      { brand: "말본 골프", name: "베케이 WHITE", price: "160,000원", discount: "50%", img: item1 },
-      { brand: "빈트릴", name: "베이직 해시태그 윈드브레이커(인디고)", price: "59,000원", discount: "63%", img: item2 },
+      { brand: "커스텀어클락", name: "베케이 WHITE", price: "160,000원", discount: "50%", img: item1 },
+      { brand: "트릴리온", name: "라이트 후디 패딩 자켓_블랙", price: "54,290원", discount: "26%", img: linkimg },
       { brand: "벤힛", name: "MRT 레오파드 아플리케 후드티", discount: "10%", price: "45,990원", img: item3 },
       { brand: "골든베어", name: "(UNI) Essential 반팔 티셔츠", discount: "20%", price: "38,400원", img: item4 },
       { brand: "세러데이 레저 클럽", name: "1960 B.R.G Logo Sweatshirt", price: "99,000원", img: item5 },

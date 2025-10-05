@@ -654,7 +654,6 @@ const allProductsItems=brand.sections.allProducts;
       
         
     </Final1>
-<Footer/>
 </Body></BIG_DIV>
 
 
