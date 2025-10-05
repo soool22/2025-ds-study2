@@ -1,6 +1,6 @@
 import React from 'react';
 import * as M from '../../style/MainPageStyled';
-import HeartBtn from '../../img/heart.svg';
+// import HeartBtn from '../../img/heart.svg';
 
 type Item = { brand: string; name: string; price: string; img: string; discount?: string; };
 
@@ -49,9 +49,9 @@ export default function Section({ title, seeMoreText = "더보기", items, index
             {secondRow.map((item, idx) => (
               <M.ItemTinyBox key={idx}>
                 <M.ItemImgPart bg={item.img}>
-                    <M.HeartButton>
+                    {/* <M.HeartButton>
                         <M.HeartButtonImg src={HeartBtn} />
-                    </M.HeartButton>
+                    </M.HeartButton> */}
                 </M.ItemImgPart>
                 <M.ItemInfoPart>
                   <p>{item.brand}</p>
