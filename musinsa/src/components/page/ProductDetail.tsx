@@ -1,13 +1,14 @@
 import React from 'react';
-import ProductDetailR from './ProductDetailR'; // ProductDetailR.tsx 파일 위치 기준
-import ProductDetailL from './ProductDetailL'; // ProductDetailR.tsx 파일 위치 기준
+import ProductDetailR from '../layouts/ProductDetailR';
+import ProductDetailL from '../layouts/ProductDetailL';
+import { ProductDetailContainer } from '../../style/ProductDetailStyled';
 
 const ProductDetail: React.FC = () => {
     return (
-        <div>
+        <ProductDetailContainer>
             <ProductDetailL />
             <ProductDetailR />
-        </div>
+        </ProductDetailContainer>
     );
 };
 
