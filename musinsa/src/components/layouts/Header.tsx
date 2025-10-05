@@ -45,7 +45,7 @@ function Header() {
                 <ElementImg2 src={BagIcon} alt='bagicon'/>
                 <ElementText3>장바구니</ElementText3>
             </IconBox>
-            <ElementText4>로그인/회원가입</ElementText4>
+            <Login>로그인/회원가입</Login>
         </RightBox>
     </HeaderShell>
   )
@@ -57,9 +57,11 @@ const HeaderShell = styled.div`
     max-width: 1440px;
     height: 56px;
     position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+    z-index: 10;
     box-sizing: border-box;
 `
 
@@ -129,6 +131,20 @@ const ElementText4 = styled.p`
 const IconBox = styled.div`
     display: flex;
     align-items: center;
+`
+
+const Login= styled.button`
+    padding: 0 4px;
+    color: #D1D1D2;
+    font-weight: 500;
+    margin: 0;
+    font-size: 13px;
+    line-height: 22px;
+    height: 24px;
+    border: solid 1px #D1D1D2;
+    border-radius: 5px;
+    white-space: nowrap;
+    background-color: #1a1b1f;
 `
 
 export default Header
