@@ -1,41 +1,277 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; 
-import "../../style/BrandDetail.css"; 
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Header from "../layouts/Header";
+import { ReactComponent as HeartIcon } from '../../img/heartIcon.svg';
+import { ReactComponent as SearchIcon } from '../../img/searchIcon.svg';
+import Footer from "../layouts/Footer";
+import {Body,Brand_nav,BrandLogoButton,Snap_price,BrandLogoImg,LookBook,BrandAddLike,BrandLikeImg,BrandSearch,BrandSearchImg,BrandCategory,
+    NewFits ,NewFit ,NewFitImg ,NewFitSpan ,LikeAndSearch 
+    ,BrandTitle,BrandInfo,Main,SortBrandinfo,InfoBox,InfoBoxs,
+    BrandProductSearch,Tags,Article_B,Article_tags,Tags2,Choose,
+    Perticle_scroll,Margin,Articles_fit,Perticles,Perticles_TAGS, Perticle, Fit_img, Fit_info, Price, Sale,
+    Article_title, Title_alone, More, Date, Between, Importent_idea, Img_info, Snap_info,
+    Whiole_info, Wholefit_img, Whole_fit_per, Gender, Original_box, Original, Red_heart, Perticle_whole, 
+    Final1, Want_to_see_whole,
+    Custom, Korea, StyledP, Img_logos, Logo_box, Final2, Final2_1, Ago, Notice, Final2_2, Sorts, Sorts_banks, Sale_percent, Img_bank, Bank_logo_img, Bank_box, Banks, Category_title,
+    StyledLi, StyledUl, Customer_center, Img_ISMS, Company, MusinsaAllRight, Company_info, Return, Rule,
 
-interface Brand {
-    id: number;
-    name: string;
-    description: string;
-    imageUrl: string;
+} from '../../style/BrandDetail'; 
+import { BRANDS_DATA } from '../../data/brandData';
+import { ReactComponent as RedHeartIcon } from '../../img/redHeart.svg';
 
-  }
 
+
+  const StyledHeartIcon = styled(HeartIcon)`
+  width: 28px;
+  height: 28px;
+`;
+const StyledsearchIcon = styled(SearchIcon)`
+width: 28px;
+height: 28px;
+`;
+const IMG_SUBSNAP=styled.img`
+width:48px;
+height:70px;
+`
+const BIG_DIV = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%; 
+`;
   const BrandDetail=()=>{
+    const FIT_INFOMATIONS = [
+        {
+          id: 1,
+          imageUrl: 'https://image.msscdn.net/campaign_service/images/plan/2025/0c3ea0363f9448a9b4071f2702be569f.jpg',
+          title: '25FW MAN 3차 신상',
+        },
+        {
+            id: 2,
+            imageUrl: 'https://image.msscdn.net/campaign_service/images/plan/2025/b1fa03cfbc6c413689c20744dc3674cc.JPG',
+            title: '우먼 인플루언서 PICK',
+          },
+          {
+            id: 3,
+            imageUrl: 'https://image.msscdn.net/display/images/2025/09/26/314e50c83cc8488ea971e04ad3cee100.jpg',
+            title: '옷미새 미홀 PICK 신상',
+          },
+          {
+            id: 4,
+            imageUrl: 'https://image.msscdn.net/display/images/2025/09/26/314e50c83cc8488ea971e04ad3cee100.jpg',
+            title: '옷미새 미홀 PICK 신상',
+          },
+          {
+            id: 5,
+            imageUrl: 'https://image.msscdn.net/display/images/2025/09/30/c7bca26de64c439aab1c6c75ccf6818a.jpg',
+            title: '추석빅세일 카테고리 특별전',
+          },
+    ];
+     const FITS = [
+        {
+          id: 1,
+          imageUrl: 'https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=1000',
+          name: '[삭형 PICK] [2PACK] 소프트 베이직 가디건 COOSCD001CD020CD021 상품상세로 이동',
+          price: 49900,
+          sale: 58
+            
+        },
+        {
+            id:2,
+            imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20250204/4757327/4757327_17389077818389_big.jpg?w=1000',
+            name:'[삭형 PICK] [2PACK] 소프트 라운드 가디건',
+            price:44900,
+            sale: 24
+        
+        },
+        {
+            id:3,
+            imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20250204/4757327/4757327_17389077818389_big.jpg?w=1000',
+            name:'[삭형 PICK] [2PACK] 소프트 베이직 라운드 가디건 차콜',
+            price:44900,
+            sale: 24
+        
+        },
+        {
+            id:4,
+            imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20250915/5462373/5462373_17586758213397_big.jpg?w=1000',
+            name:'코튼 커브드 워시드 블루종 자켓 블랙 COOSJK042BLACK',
+            price:86200,
+            sale: 23
+        
+        },
+        {
+    id:5,
+    imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20170313/498040/498040_17399299481276_big.jpg?w=1000',
+    name:'[리뉴얼ver.] 소프트 베이직 브이넥 가디건 블랙 COOSCD001BLACK',
+    price:44900,
+    sale: 24
+},        {
+    id:6,
+    imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20210928/2150099/2150099_17171222213401_big.jpg?w=1000',
+    name:'[2PACK] 에센셜 코튼 베이직 3 스타일 니트 COOSKT025',
+    price:41300,
+    sale: 65
+},
+{
+    id:7,
+    imageUrl:'https://image.msscdn.net/thumbnails/images/goods_img/20240911/4433343/4433343_17592893001197_big.jpg?w=1000',
+    name:'[데일리룸 PICK] 하찌 라운드 헤비 니트 풀오버 11 COLOR COOSKT066',
+    price:43400,
+    sale: 30
+},
 
+    ];
+const BrandLogos=[
+    {id:1,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/e7237db6da8441e19754ed65c03ae447.png',   
+    },
+    {
+        id:2,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/de2418654d7543709c5ceafbdff3059e.png',   
+    },
+    {
+        id:3,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/dc5cf6bdf73645e08f6bc1d77421e2a7.png',
+    },
+    {
+        id:4,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/5d5dcb80b54e4879aa524dbc51fdcaaf.png'
+    },
+    {id:5,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/6c52dcb38f0e44e5ae53fde2a1c1c812.png',
+    },{
+        id:6,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/84bd757ccedc4963b16c7fe55787ff68.png'
+    },{
+        id:7,
+        imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/b3bcc96e723a4b95a17124b9e7ad8cb8.png',
 
+    },
+    {id:8
+        ,imageUrl:'https://image.msscdn.net/display/images/common/2025/08/21/b5301e3cbf754ab6b97f4890b85e5cac.png'
+    }
 
+];
+ const Logos = [
+    {
+      id: 1,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/f3f618117fcf4984b337b7c506f110f0.png",
+    },
+    {
+      id: 2,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/8e948a203d0047d4b747e7574abcb96b.png",
+    },
+    {
+      id: 3,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/a5710e6970814e5a90c929d203a1b7bf.png",
+    },
+    {
+      id: 4,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/580e26d7942b4363b9a22f19ed788de4.png",
+    },
+    {
+      id: 5,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/f74ff83a950f4e66a63a14361d6fdf5c.png",
+    },
+    {
+      id: 6,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/a4b8764bf0074cb2864e2dc893e491fc.png",
+    },
+    {
+      id: 7,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/086bdcddb4f44ec8ae860c9a62f4e3d3.png",
+    },
+    {
+      id: 8,
+      imageUrl: "https://image.msscdn.net/display/images/common/2025/07/23/a70baa736f2f4992ad2d26f7f6831c8b.png",
+    },
+  ];
+  const BANKS = [
+    {
+      id: 1,
+      url: "https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-hyundai.png",
+      title: "무신사페이 x 무신사 현대카드",
+      sale_percent: "10만원 이상 결제 시 1만원 할인",
+    },
+    {
+      id: 2,
+      url: "https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-toss.png",
+      title: "토스페이 × 계좌",
+      sale_percent: "12만원 이상 결제 시 6천원 할인",
+    },
+    {
+      id: 3,
+      url: "https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-toss.png",
+      title: "토스페이 × 삼성카드",
+      sale_percent: "5만원 이상 결제 시 6천원 할인",
+    },
+    {
+      id: 4,
+      url: "https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-kakaopay.png",
+      title: "카카오페이 × 페이머니",
+      sale_percent: "10만원 이상 결제 시 5천원 할인",
+    },
+    {
+      id: 5,
+      url: "https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-samsung.png",
+      title: "무신사페이 × 삼성카드",
+      sale_percent: "12만원 이상 결제 시 5천원 할인",
+    },
+  ];
+
+  const ISMS='https://image.msscdn.net/display/images/common/2025/07/23/7504acfb7ec8432ea672a8284e9dabb7.png';
+const Logo='https://image.msscdn.net/thumbnails/images/brand/white_logo_img/costumeoclock.svg?fit=without_padding&ts=20230608174403';
+
+const Brand_Header=styled.div`
+width:100%;  position: sticky;
+top: 0; 
+`
+ // BRANDS_DATA 배열에서 첫 번째 브랜드 데이터를 가져옵니다.
+  // 만약 다른 브랜드를 선택해야 한다면, id 등을 통해 해당 브랜드 데이터를 찾아야 합니다.
+  const brand = BRANDS_DATA[0];
+
+  // 사용할 'featured' 섹션 데이터를 변수에 할당합니다.
+  const featuredItems = brand.sections.featured;
+  const RankingItems=brand.sections.ranking;
+  const newArrivalsItems = brand.sections.newArrivals;
+const exclusiveItems =brand.sections.exclusive;
+const tagsData = brand.sections.tags;
+const exhibitionsData = brand.sections.exhibitions;
+const lookbookItem = brand.sections.lookbook;
+const snapItems=brand.sections.snap;
+const allProductsItems=brand.sections.allProducts;
+
+  // 가격을 원화(KRW) 형식으로 포맷하는 함수 (예: 49900 -> 49,900)
+  const formatPrice = (price: number) => {
+    return price.toLocaleString('ko-KR');
+  };
 
 
   return (
-    //헤더들어오기
-    <div>
-    <div className="Brand_nav">
-        <button className="Brand_logo_button">
-            <img className="Brand_logo_img" src="https://image.msscdn.net/thumbnails/images/brand/white_logo_img/costumeoclock.svg?fit=without_padding&ts=20230608174403"/>
-
-        </button>
-        <div>
-        <div className="Brand_add_like">
+   <BIG_DIV>
+    <Body>  <Brand_Header>
+         <Header/>
+         
+       
+    <Brand_nav>
+        <BrandLogoButton>
+        <BrandLogoImg src={Logo}/>
+          
+          
+        </BrandLogoButton>
+        <LikeAndSearch>
+        <BrandAddLike>
         
-            <img className="brand_like_img" src="M9.79493 16.3061C9.91046 16.4154 10.0895 16.4154 10.2051 16.3061C11.1045 15.4553 14.7235 12.0265 16.25 10.5C16.8895 9.85325 17.5 8.75 17.5 7.5C17.5 5.34156 15.8342 3.5 13.75 3.5C11.9105 3.5 11 4.99545 10 6.25C9 4.99545 8.08947 3.5 6.25 3.5C4.16579 3.5 2.5 5.34156 2.5 7.5C2.5 8.75 3.11053 9.85325 3.75 10.5C5.27651 12.0265 8.89549 15.4553 9.79493 16.3061Z"/>
-        </div>
-        <div className="Brand_search">
-            <img className="Brand_search_img" src="../../../img/search.svg"/>
-        </div>
-</div>
-</div>
-<div className="Brand_category">
+        <StyledHeartIcon />
+        </BrandAddLike>
+        <BrandSearch>
+     <StyledsearchIcon/>
+        </BrandSearch>
+</LikeAndSearch>
+</Brand_nav>
+<BrandCategory>
     <div>홈</div>
     <div>콘텐츠</div>
     <div>전체</div>
@@ -47,566 +283,313 @@ interface Brand {
     <div>신발</div>
     <div>아울렛</div>
     <div>기획전</div>
-</div>
+</BrandCategory>
+</Brand_Header>
 
 
 
 
-
-<main>
-<div className="Brand_info">
-<div className="Brand_title">
+<Main>
+<BrandInfo>
+<BrandTitle>
     <div>COSTUME O’CLOCK</div>
-    <div className="sort_Brandinfo">
+    <SortBrandinfo>
     <div>커스텀어클락</div>
     <span>단독</span>
     <span>Since 2010</span>
-    </div>
-</div>
-<div className="info_boxs">
-<button className="info_box">
+    </SortBrandinfo>
+</BrandTitle>
+<InfoBoxs>
+<InfoBox>
     <span>19.8만</span>
-</button>
-<button className="info_box">
+</InfoBox>
+<InfoBox>
     <span>스냅 프로필</span>
-</button>
-<button className="info_box">
+</InfoBox>
+<InfoBox>
     <span>브랜드 정보</span>
-</button>
-</div>
+</InfoBox>
+</InfoBoxs>
 
-    </div>
-<div className="new_fits">
-    <div className="new_fit">
-        <img className="new_fit_img" src="https://image.msscdn.net/campaign_service/images/plan/2025/0c3ea0363f9448a9b4071f2702be569f.jpg"/>
-        <span>25FW MAN 3차 신상</span>
-    </div>
-    <div className="new_fit">
-        <img className="new_fit_img" src="https://image.msscdn.net/campaign_service/images/plan/2025/b1fa03cfbc6c413689c20744dc3674cc.JPG"/>
-        <span>우먼 인플루언서 PICK</span>
-    </div>
-    <div className="new_fit">
-        <img className="new_fit_img" src="https://image.msscdn.net/display/images/2025/09/26/314e50c83cc8488ea971e04ad3cee100.jpg"/>
-        <span>옷미새 미홀 PICK 신상</span>
-    </div>
-</div>
+    </BrandInfo>
+    <NewFits>
+      
+         {/* featuredItems 배열을 map 함수로 순회하며 각 아이템을 렌더링합니다. */}
+         {featuredItems.map((item) => (
+          <NewFit key={item.id} >
+            <NewFitImg src={item.imageUrl} alt={item.title} />
+            <NewFitSpan>{item.title}</NewFitSpan>
+          </NewFit>
+        ))}
+    </NewFits>
 <article className="article_A">
-    <div className="brand_product_search">
+    <BrandProductSearch>
         <div>커스텀어클락</div>
         <span>브랜드 상품 검색</span>
-    </div>
-    <div className="tags">
+    </BrandProductSearch>
+    <Tags>
         <span>#WINTER</span>
         <span>#SWEAT</span>
         <span>#WOMAN</span>
         <span>#25FW</span>
         <span>#FALL</span>
         <span>#2PACK</span>
-    </div>
+    </Tags>
 
 </article>
-<article className="article_B" id="실시간랭킹">
-    <div className="article_tags">
-        <span id="choose">실시간 랭킹</span>
+<Article_B>
+    <Article_tags>
+        <Choose>실시간 랭킹</Choose>
         <span>일간</span>
         <span>주간</span>
         <span>월간</span>
-    </div >    
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-            <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
+    </Article_tags >    
+    <Articles_fit>
+        <Perticle_scroll>
+            <Margin></Margin>
+            <Perticles>
+                {RankingItems.map((item)=>(
+                      <Perticle key={item.id}>
+                           <Fit_img src={item.imageUrl}/>
+                           <Fit_info>
+                           <span>{item.name}</span>
+                           <Price>
+                           <Sale>{item.salePercent}%</Sale>
+                           <span>{item.price}원</span>
+                           </Price>
+                           </Fit_info>
+                      </Perticle>
+                ))}
 
-</article>
+            
+    </Perticles>
+    <Margin></Margin>
+    </Perticle_scroll>
+    </Articles_fit>
 
-<article className="article_B" id="신상품">
-    <div className="article_title">
+</Article_B>
+
+<Article_B>
+    <Article_title>
         <span>신상품</span>
-        <span id="more">더보기</span>
-    </div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
-  
-</article>
+        <More>더보기</More>
+    </Article_title>
+    <Articles_fit>
+        <Perticle_scroll>
+        <Margin></Margin>
+            <Perticles>
+                {newArrivalsItems.map((item)=>
+                    <Perticle key={item.id}>
+                    <Fit_img src={item.imageUrl}/>
+                    <Fit_info>
+                    <span>{item.name}</span>
+                    <Price>
+                    <Sale>{item.salePercent}%</Sale>
+                    <span>{item.price}원</span>
+                    </Price>
+                    </Fit_info>
+                    </Perticle>
+                )}
 
-<article className="article_B" id="단독상품">
-    <div className="article_title">
+        
+    </Perticles>
+    <Margin></Margin>
+        </Perticle_scroll>
+    </Articles_fit>
+  
+</Article_B>
+
+<Article_B>
+    <Article_title>
         <span>단독 상품</span>
-        <span id="more">더보기</span>
-    </div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
+        <More>더보기</More>
+    </Article_title>
+    <Articles_fit>
+        <Perticle_scroll>
+            <Margin></Margin>
+            <Perticles>
+                {exclusiveItems.map((item)=>(
+                     <Perticle key={item.id}>
+                     <Fit_img src={item.imageUrl}/>
+                     <Fit_info>
+                     <span>{item.name}</span>
+                     <Price>
+                     <Sale>{item.salePercent}%</Sale>
+                     <span>{item.price}원</span>
+                     </Price>
+                     </Fit_info>
+             </Perticle>
+                ))}
+
+             
+            
+    </Perticles>
+    <Margin></Margin>
+    </Perticle_scroll>
+    </Articles_fit>
   
-</article>
+</Article_B>
 
-<article className="article_B" id="TAGS">
+<Article_B>
 
-        <span className="title_alone">#TAGS</span>
-        <div className="article_tags" id="tags2">
-        <span id="choose">#WINTER</span>
+        <Title_alone>#TAGS</Title_alone>
+        <Tags2>
+        <Choose>#WINTER</Choose>
         <span>#SWEAT</span>
         <span>#WOMAN</span>
         <span>#25FW</span>
         <span>#FALL</span>
         <span>#2PACK</span>
-    </div >    
+    </Tags2>    
 
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles_TAGS">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
+    <Articles_fit>
+        <Perticle_scroll>
+        <Margin></Margin>
+            <Perticles_TAGS>
+                {tagsData.products.map((product)=>(
+                
+                    <Perticle key={product.id}>
+                    <Fit_img src={product.imageUrl}/>
+                    <Fit_info>
+                    <span>{product.name}</span>
+                    <Price>
+                    <Sale>{product.salePercent}%</Sale>
+                    <span>{product.price}원</span>
+                    </Price>
+                    </Fit_info>
+            </Perticle>
+                ))}    
+
+
+        
+    </Perticles_TAGS>
+    <Margin></Margin>
+    </Perticle_scroll>
+    </Articles_fit>
   
-</article>
+</Article_B>
 
-<article className="article_B" id="주요기획전">
-    <div className="title_alone">
-        <span>주요 기획전</span>
-    </div>
-    <div className="importent_idea">
-        <div>커스텀어클락 25FW 3차 신상</div>
-        <div className="between">
-            <span className="date">25.09.29 - 25.10.13</span>
-    <span id="more">더보기</span>
-    </div>
+<Article_B>
+<Title_alone>
+    <span>주요기획전</span>
+   </Title_alone>
+{exhibitionsData.map((exhibition) => (
+    <div>
+
+   <Importent_idea>
+   <div>{exhibition.title}</div>
+   <Between>
+       <Date>{exhibition.date}</Date>
+<More>더보기</More>
+</Between>
+</Importent_idea>
+
+<Articles_fit>
+<Perticle_scroll>
+<Margin></Margin>
+    <Perticles>
+    {exhibition.products.map((product) => (
+          <Perticle key={product.id}>
+          <Fit_img src={product.imageUrl}/>
+          <Fit_info>
+          <span>{product.name}</span>
+          <Price>
+          <Sale>{product.salePercent}%</Sale>
+          <span>{product.price}원</span>
+          </Price>
+          </Fit_info>
+  </Perticle>
+ 
+    ))}
+
+
+</Perticles>
+<Margin></Margin>
+</Perticle_scroll>
+</Articles_fit>
 </div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
-    <div className="importent_idea">
-        <div>커스텀어클락 우먼 인플루언서 추천</div>
-        <div className="between">
-            <span className="date">25.09.28 - 25.10.13</span>
-    <span id="more">더보기</span>
-    </div>
-</div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
+))}
+   
+   
+
   
-</article>
+  
+  
+</Article_B>
 
-<article className="article_B" id="룩북">
-    <div className="article_title">
+<Article_B>
+    <Article_title>
         <span>룩북</span>
-        <span id="more">더보기</span>
-    </div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
-  
-</article>
+        <More>더보기</More>
+    </Article_title>
+    <Articles_fit>
+        <Perticle_scroll>
+        <Margin></Margin>
+            <Perticles>
+                {lookbookItem.map((item)=>(
+                     <Perticle key={item.id}>
+                     <Fit_img src={item.imageUrl}/>
+                     <Fit_info>
+                     <span>{item.title}</span>
+                    <LookBook>
+                        <span>{item.content}</span>
+                        <span>{item.date}</span>
+                    </LookBook>
+                     </Fit_info>
+             </Perticle>
+                ))}
+          
 
-<article className="article_B" id="스냅">
-    <div className="article_title">
+    </Perticles>
+    <Margin></Margin>
+    </Perticle_scroll>
+    </Articles_fit>
+  
+</Article_B>
+
+<Article_B>
+    <Article_title>
         <span>스냅</span>
-        <span id="more">더보기</span>
-    </div>
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-            <div className="margin"></div>
-            <div className="perticles">
-        <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="snap_info">
-<img className="img_info" src="https://image.msscdn.net/images/goods_img/20250821/5351750/5351750_17563436473643_500.jpg"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="snap_info">
-<img className="img_info" src="https://image.msscdn.net/images/goods_img/20250821/5351750/5351750_17563436473643_500.jpg"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="snap_info">
-<img className="img_info" src="https://image.msscdn.net/images/goods_img/20250821/5351750/5351750_17563436473643_500.jpg"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-    <div className="perticle">
-            <img className="fit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-            <div className="snap_info">
-<img className="img_info" src="https://image.msscdn.net/images/goods_img/20250821/5351750/5351750_17563436473643_500.jpg"/>
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-            </div>
-    </div>
-    </div>
-
-
-    </div>
-    <div className="margin"></div>
-    </div>
-    </div>
+        <More>더보기</More>
+    </Article_title>
+    <Articles_fit>
+        <Perticle_scroll>
+        <Margin></Margin>
+            <Perticles>
+                {snapItems.map((item)=>(
+  <Perticle key={item.id}>
+  <Fit_img src={item.mainImageUrl}/>
   
-</article>
+  <Snap_price>
 
-<article className="article_B" id="TAGS">
+  <IMG_SUBSNAP src={item.subImageUrl}></IMG_SUBSNAP>
+  <Fit_info>
+  <span>{item.title}</span>
+  <Price>
+  <Sale>{item.salePercent}%</Sale>
+  <span>{item.price}원</span>
+  </Price>  
+  </Fit_info>
+  </Snap_price>
 
-        <span className="title_alone">전체 상품</span>
-        <div className="whiole_info">
-        <div className="article_tags" id="tags2">
-        <span id="choose">전체</span>
+</Perticle>
+                ))}
+
+          
+
+    </Perticles>
+    <Margin></Margin>
+    </Perticle_scroll>
+    </Articles_fit>
+  
+</Article_B>
+
+<Article_B>
+
+        <Title_alone>전체 상품</Title_alone>
+        <Whiole_info>
+        <Tags2>
+        <Choose>전체</Choose>
         <span>상의</span>
         <span>아우터</span>
         <span>바지</span>
@@ -615,446 +598,64 @@ interface Brand {
         <span>
             신발
         </span>
-        </div>
-        <span id="more">더보기</span>
-    </div >    
+        </Tags2>
+        <More>더보기</More>
+    </Whiole_info >    
 
-    <div className="articles_fit">
-        <div className="perticle_scroll">
-    
-            <div id="whole_fit_per">
-            <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
+    <Articles_fit>
+        <Perticle_scroll>
+            <Whole_fit_per>
+           {allProductsItems.map((item)=>
+        (
+            <Perticle_whole key={item.id}>
+            <Wholefit_img src={item.imageUrl}/>
+            <Fit_info>
+            <span>{item.name}</span>
+            <Price>
+            <Sale>{item.salePercent}%</Sale>
+            <span>{item.price}원</span>
+            </Price>
+            
+    <Red_heart>
+        <RedHeartIcon   style={{ width: '12px', padding:'2px 0 0 0',height: '12px' }} />
+    1
+    </Red_heart>
+    <Original_box>
+        <Original>NEW</Original>
+        <Original>단독</Original>
+    </Original_box>
+    <Gender>{item.gender}</Gender>
+            </Fit_info>
+    </Perticle_whole>
+        ))}
+         
+          
+       
 
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
 
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    <div className="perticle_whole">
-            <img className="_wholefit_img" src="https://image.msscdn.net/thumbnails/images/goods_img/20230801/3440440/3440440_17585191785388_big.jpg?w=780"/>
-           
-            <div className="fit_info">
-            <span>[2PACK] 소프트 베이직 가디건 </span>
-
-            <div className="price">
-            <span className="sale">58%</span>
-            <span>49,900원</span>
-            </div>
-
-            <div className="red_heart">
-            1
-            </div>
-            <div className="original_box">
-                <span className="original">NEW</span>
-                <span className="original">단독</span>
-            </div>
-            <div className="female">여성</div>
-            </div>
-    </div>
-    </div>
-    </div>
-    </div>
+  </Whole_fit_per>
+    </Perticle_scroll>
+    </Articles_fit>
   
-</article>
+</Article_B>
 
 
-</main>
-    
-<div>
-    <div className="final1">
-        <div className="want_to_see_whole">상품 전체보기</div>
+</Main>
+<Final1>
+        <Want_to_see_whole>상품 전체보기</Want_to_see_whole>
         
-            <img className="Brand_logo_img" src="https://image.msscdn.net/thumbnails/images/brand/white_logo_img/costumeoclock.svg?fit=without_padding&ts=20230608174403"/>
-            <span className="custom">커스텀어클락</span>
+            <BrandLogoImg src={Logo}/>
+            <Custom>커스텀어클락</Custom>
            
-                <span className="korea">한국 Since 2010</span>
-            <p>커스텀어클락(COSTUME O’CLOCK)은 위트 있는 클래식과 캐주얼의 밸런
+                <Korea>한국 Since 2010</Korea>
+            <StyledP>커스텀어클락(COSTUME O’CLOCK)은 위트 있는 클래식과 캐주얼의 밸런
             <tr/>스를 중점으로 일상적인 아이템 속에 미니멀한 감성을 담는 시티 포멀 웨어를
-            <tr/>제공하는 브랜드입니다.</p>
+            <tr/>제공하는 브랜드입니다.</StyledP>
       
         
-    </div>
-    
-    <div className="final2">
-        <div className="final2_1">
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/f3f618117fcf4984b337b7c506f110f0.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/8e948a203d0047d4b747e7574abcb96b.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/a5710e6970814e5a90c929d203a1b7bf.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/580e26d7942b4363b9a22f19ed788de4.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/f74ff83a950f4e66a63a14361d6fdf5c.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/a4b8764bf0074cb2864e2dc893e491fc.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/086bdcddb4f44ec8ae860c9a62f4e3d3.png"/>
-            </span>
-            <span className="logo_box">
-                <img className="img_logos" src="https://image.msscdn.net/display/images/common/2025/07/23/a70baa736f2f4992ad2d26f7f6831c8b.png"/>
-            </span>
-        </div>
-        <div className="final2_2">
-            <div className="sorts">
-               <span className="Notice">공지사항</span>
-                <span id="more">전체보기</span>
-            </div>
-            <div className="sorts">
-                <span>우체국 배송 서비스 일시 중단 안내</span>
-                <span id="ago">11시간 전</span>
-            </div>
-            <div className="sorts">
-                <span>개인정보 보호 및 자사몰,직거래 유도 주의 안내</span>
-                <span id="ago">4일 전</span>
-            </div>
-            <div className="sorts">
-                <span>네이버페이 결제 서비스 종료 안내</span>
-                <span id="ago">6일 전</span>
-            </div>
-        </div>
-        <div className="final2_2" id="결제 해택">
-            <div className="sorts">
-               <span className="Notice">결제 해택</span>
-                <span id="more">전체보기</span>
-            </div>
-            
-            <div className="sorts_banks">
-                <img className="img_bank" src="https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-hyundai.png"/>
-                <span>무신사페이 x 무신사 현대카드</span>
-                <span id="sale_percent">10만원 이상 결제 시 1만원 할인</span>
-            </div>
-            <div className="sorts_banks">
-            <img className="img_bank" src="https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-toss.png"/>
-                <span>토스페이 × 계좌</span>
-                <span id="sale_percent">12만원 이상 결제 시 6천원 할인</span>
-            </div>
-            <div className="sorts_banks">
-            <img className="img_bank" src="https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-toss.png"/>
-
-                <span>토스페이 × 삼성카드</span>
-                <span id="sale_percent">5만원 이상 결제 시 6천원 할인</span>
-            </div>
-            <div className="sorts_banks">
-            <img className="img_bank" src="https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-kakaopay.png"/>
-                <span>카카오페이 × 페이머니</span>
-                <span id="sale_percent">10만원 이상 결제 시 5천원 할인</span>
-            </div>
-            <div className="sorts_banks">
-            <img className="img_bank" src="https://image.msscdn.net/musinsaUI/store/order/finance/28x28/logo-finance-samsung.png"/>
-                <span>무신사페이 × 삼성카드</span>
-                <span id="sale_percent">12만원 이상 결제 시 5천원 할인</span>
-            </div>
-
-            <div className="banks">
-                <div className="bank_box">
-                    <img className="bank_logo_img" src="https://image.msscdn.net/display/images/common/2025/08/21/e7237db6da8441e19754ed65c03ae447.png" />
-                </div>
-                <div className="bank_box">
-                    <img className="bank_logo_img" src="https://image.msscdn.net/display/images/common/2025/08/21/de2418654d7543709c5ceafbdff3059e.png" />
-                </div>
-                <div className="bank_box">
-                <img className="bank_logo_img" src="https://image.msscdn.net/display/images/common/2025/08/21/dc5cf6bdf73645e08f6bc1d77421e2a7.png"/>
-                </div>
-       
-                <div className="bank_box">
-                <img className="bank_logo_img" src="https://image.msscdn.net/display/images/common/2025/08/21/5d5dcb80b54e4879aa524dbc51fdcaaf.png"/>
-                    </div>    
-                    <div className="bank_box">
-                <img className="bank_logo_img" src="https://image.msscdn.net/display/images/common/2025/08/21/6c52dcb38f0e44e5ae53fde2a1c1c812.png"/>
-
-                </div>
-                <div className="bank_box">
-                  <img className="bank_logo_img"src="https://image.msscdn.net/display/images/common/2025/08/21/84bd757ccedc4963b16c7fe55787ff68.png"/>
-                </div>
-                <div className="bank_box">
-                  <img className="bank_logo_img"src="https://image.msscdn.net/display/images/common/2025/08/21/b3bcc96e723a4b95a17124b9e7ad8cb8.png"/>
-                </div>
-                <div className="bank_box">
-                  <img className="bank_logo_img"src="https://image.msscdn.net/display/images/common/2025/08/21/b5301e3cbf754ab6b97f4890b85e5cac.png"/>
-                </div>
-            </div>
-
-        </div>
-        <div className="final2_2">
-            <div className="ul">
-            <div className="li">
-                <div id="category_title">어바웃 무신사</div>
-                <div>회사 소개</div>
-                <div>비즈니스 소개</div>
-                <div>지속 가능성</div>
-                <div>뉴스룸</div>
-                <div>채용 정보</div>
-            </div>
-            <div className="li">
-                <div id="category_title">오프라인 스토어</div>
-                <div>무신사 스토어</div>
-                <div>무신사 스탠다드</div>
-                <div>29CM</div>
-                <div>무신사 엠프티</div>
-                <div>무신사 스퀘어</div>
-                <div>무신사 뷰티</div>
-                <div>무신사 테라스</div>
-                <div>아즈니섬</div>
-            </div>
-            <div className="li">
-                <div id="category_title">비즈니스</div>
-                <div>29CM</div>
-                <div>솔드아웃</div>
-                <div>엠프티</div>
-                <div>무신사 파트너스</div>
-                <div>무신사 스튜디오</div>
-                <div>무신사 트레이딩</div>
-                <div>무신사 로지스틱스</div>
-                
-            </div>
-            <div className="li">
-                <div id="category_title">파트너 지원</div>
-                <div>입점 문의</div>
-                <div>광고/제휴 문의</div>
-                <div>협찬 문의</div>
-                <div>공동/대량 구매 문의</div>
-                <div>제조/생산 문의</div>
-                <div>이미지/저작권 문의</div>
-            
-            </div>
-            <div className="li">
-                <div id="category_title">고객지원</div>
-                <div>1:1 문의하기</div>
-                <div>FAQ 자주 묻는 질문</div>
-                <div>안전 거래 센터</div>
-                <span className="customer_center">
-                    <span>
-                        고객센터 1544-7199
-                    </span>
-                    <span>운영시간 :  평일 06:00-18:00(점심시간 12:00-13:00제외)</span>
-                    <span id="more">cs@musinsa.com</span>
-                </span>
-            </div>
-</div>
-        </div>
-
-        <div className="final2_2">
-            <div className="company">
-            <div className="MusinsaAllRight">
-            © MUSINSA ALL RIGHTS RESERVED
-            </div>
-            <div className="company_info">
-            (주) 무신사 | 대표자 : 조만호, 박준모 | 주소 : 서울특별시 성동구 아차산로 13길 11, 1층 (성수동2가, 무신사캠퍼스 엔1) ) | 호스팅사업자 : (주)무신사 | 통신판매업 : 2022-서울성동-01952 | 사업자등록번호 : 211-88-79575(사업자정보확인)
-            </div>
-            <div>
-            당사는 고객님이 현금 결제한 금액에 대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다. 서비스 가입사실 확인
-            </div>
-            <div className="return">
-            일부 상품의 경우 주식회사 무신사는 통신판매의 당사자가 아닌 통신판매중개자로서 상품, 상품정보, 거래에 대한 책임이 제한될 수 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다.
-            </div>
-            <div className="rule">
-            <span>개인정보처리방침</span>·<span>이용약관·</span><span>결제대행 위탁사</span>·<span>분쟁해결기준·</span><span>영상정보처리기기 운영</span>·<span>관리방침</span> 
-            </div>
-            <div className="rule">
-            <span>윤리</span>·<span>준법경영 국제 표준 통합 인증</span>·<span>안전보건경영시스템 국제 인증</span>
-            </div>
-            <div className="rule">
-                <img className="img_ISMS" src=" https://image.msscdn.net/display/images/common/2025/07/23/7504acfb7ec8432ea672a8284e9dabb7.png"/>
-                <span>정보보호 관리체계 ISMS 인증</span>
-                </div>
-                
-</div>
-        </div>
-
-    </div>
-
-</div>
-</div>
+    </Final1>
+<Footer/>
+</Body></BIG_DIV>
 
 
 
