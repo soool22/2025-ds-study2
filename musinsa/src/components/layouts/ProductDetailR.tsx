@@ -404,10 +404,10 @@ const ProductStickyPanel: React.FC = () => {
                             <li key={index}>
                                 <img src={benefit.icon} alt={benefit.title} />
                                 <div className="benefit-info">
-                                    <p className="main-text">
+                                    <div className="main-text">
                                         {benefit.title} <span className="discount">{benefit.discount}</span>
                                         {benefit.label && <span className="first-purchase-label">{benefit.label}</span>}
-                                    </p>
+                                    </div>
                                 </div>
                             </li>
                         ))}
