@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductDetailR from './ProductDetailR'; // ProductDetailR.tsx 파일 위치 기준
-import ProductDetailL from './ProductDetailL'; // ProductDetailR.tsx 파일 위치 기준
+import ProductDetailR from '../layouts/ProductDetailR'; // ProductDetailR.tsx 파일 위치 기준
+import ProductDetailL from '../layouts/ProductDetailL'; // ProductDetailR.tsx 파일 위치 기준
 
 const ProductDetail: React.FC = () => {
     return (
