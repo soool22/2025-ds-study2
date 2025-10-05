@@ -202,7 +202,6 @@ function Signup(){
         const isButtonActive = allChecked;
         return (
             <Big_div>
-                <Header />
                 <Gray_background>
                     <BODY >
                         <Header_login>
