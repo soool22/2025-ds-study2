@@ -41,8 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
+=======
   },
   "devDependencies": {
     "@types/react-dom": "^19.1.9"
+>>>>>>> 121a886f9064d12561e5e8e9fcded7c8c1ea0330
   }
 }
