@@ -47,7 +47,7 @@ function Header() {
                 <ElementImg2 src={BagIcon} alt='bagicon'/>
                 <ElementText3>장바구니</ElementText3>
             </IconBox>
-            <Login>로그인/회원가입</Login>
+            <Login onClick={() => navigate(`/login`)}>로그인/회원가입</Login>
         </RightBox>
     </HeaderShell>
   )
