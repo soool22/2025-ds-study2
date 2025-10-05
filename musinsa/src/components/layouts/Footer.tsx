@@ -112,7 +112,7 @@ const Logo='https://image.msscdn.net/thumbnails/images/brand/white_logo_img/cost
 
 return(
         
-<div>
+<div style={{ width: '100%', backgroundColor: '#f5f5f5' }} >
     
     
     <Final2>

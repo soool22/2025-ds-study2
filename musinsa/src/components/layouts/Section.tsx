@@ -1,6 +1,7 @@
 import React from 'react';
 import * as M from '../../style/MainPageStyled';
 // import HeartBtn from '../../img/heart.svg';
+import { useNavigate } from 'react-router-dom';
 
 type Item = { brand: string; name: string; price: string; img: string; discount?: string; };
 
@@ -15,6 +16,8 @@ export default function Section({ title, seeMoreText = "더보기", items, index
   const displayedItems = index === 0 ? items.slice(0, 10) : items.slice(0, 20);
 
 
+  const navigate = useNavigate();
+
   const firstRow = displayedItems.slice(0, 10);
   const secondRow = displayedItems.slice(10, 20);
 
@@ -28,10 +31,13 @@ export default function Section({ title, seeMoreText = "더보기", items, index
       <M.ItemSmallBox style={{ flexWrap: 'nowrap', overflowX: 'auto', flexDirection: 'column' }}>
         <div style={{ display: 'flex' }}>
           {firstRow.map((item, idx) => (
-            <M.ItemTinyBox key={idx}>
+            <M.ItemTinyBox key={idx} onClick={() => navigate(`/productdetail`)} >
               <M.ItemImgPart bg={item.img} />
               <M.ItemInfoPart>
-                <p>{item.brand}</p>
+                <p onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/branddetail`);
+                }}>{item.brand}</p>
                 <p className="name">{item.name}</p>
                 <p>
                   {item.discount && (

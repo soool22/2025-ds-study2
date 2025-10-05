@@ -20,6 +20,7 @@ function MainLayout() {
     <>
       <Header />
       <StyledOutlet />
+      <Footer/>
     </>
   )
 }
@@ -53,7 +54,7 @@ const WebShell = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-   min-height: 100vh; 
+  min-height: 100vh; 
 `
 
 const StyledOutlet = styled(Outlet)`

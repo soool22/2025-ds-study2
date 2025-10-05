@@ -27,7 +27,15 @@ import {
     SizeTableWrapper, StyledTable, TableHeaderCell, TableCell, ButtonRow, StyledButton,
     HorizontalLine, FitSection, FitTableWrapper,
     SizeChartContainer, SizeCategoryTabs, SizeCategoryButton, SizeChartTableWrapper, SizeChartNoteSection,
-    SizeCategoryUl, SizeCategoryLi
+    SizeCategoryUl, SizeCategoryLi,
+    SnapReviewContainer,
+    NoticeBox,
+    NoticeText,
+    ReviewList,
+    ReviewItem,
+    ReviewImage,
+    ReviewTitle,
+    EmptyText,
 } from '../../style/ProductDetailLStyled';
 
 // --- 가상 데이터 ---
@@ -559,7 +567,39 @@ const SizeTabContent: React.FC = () => {
         </TabContentSection>
     );
 };
+//스냅
+interface SnapReviewProps {
+    activeTab: string;
+}
+const SnapReviewTab: React.FC<SnapReviewProps> = ({ activeTab }) => {
+    if (activeTab !== '스냅·후기') return null;
 
+    return (
+        <SnapReviewContainer>
+            <h3>후기</h3>
+
+            <NoticeBox>
+                <NoticeText>
+                    <strong>100만원</strong> 적립금의 후기왕에 도전해보세요!
+                    <br />
+                    무신사 후기왕 랭킹 오픈
+                </NoticeText>
+                <span className="arrow">›</span>
+            </NoticeBox>
+
+            <ReviewList>
+                <ReviewItem>
+                    <ReviewImage
+                        src="https://image.msscdn.net/thumbnails/data/estimate/5438735_0/0e4100e805564f9b9fb8165a2d244c5e.jpg?w=260" alt="패딩 착용샷"
+                    />
+                    <ReviewTitle>라이트 후디 패딩 자켓_블랙</ReviewTitle>
+                </ReviewItem>
+            </ReviewList>
+
+            <EmptyText>등록된 후기가 없습니다.</EmptyText>
+        </SnapReviewContainer>
+    );
+};
 const ProductDetail: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeTab, setActiveTab] = useState('정보');
@@ -655,8 +695,10 @@ const ProductDetail: React.FC = () => {
                 );
             case '사이즈':
                 return <SizeTabContent />;
+            case '스냅·후기':                     // ✅ 추가
+                return <SnapReviewTab activeTab={activeTab} />;
             default:
-                return <TabContentSection>{tab} 탭 내용 (구현 예정)</TabContentSection>;
+                return <TabContentSection></TabContentSection>;
         }
     };
 
@@ -721,7 +763,7 @@ const ProductDetail: React.FC = () => {
                         <span>스냅·후기</span>
                     </TabButton>
                     <TabButton active={activeTab === '문의'} onClick={() => setActiveTab('문의')}>
-                        <span>문의<span>30</span></span>
+                        <span>문의<span>0</span></span>
                     </TabButton>
                 </div>
             </InfoTabs>
